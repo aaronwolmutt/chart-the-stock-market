@@ -15,7 +15,6 @@ import {
 const StockMarketForm = () => {
   const [formFields, setFormFields] = useState({})
   const onFormChanged = (eventTarget) => {
-    console.log(eventTarget)
     setFormFields({ ...formFields, [eventTarget.id]: eventTarget.value })
   }
   return (
