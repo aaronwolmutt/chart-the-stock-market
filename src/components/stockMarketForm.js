@@ -11,11 +11,19 @@ import {
   Input,
   Label
 } from 'reactstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import submitStockForm from '../redux/stockMarketSlice'
 
 const StockMarketForm = () => {
+  const defaultSymbol = useSelector((state) => state.stockMarket.formData.symbol)
+  const dispatch = useDispatch()
   const [formFields, setFormFields] = useState({})
   const onFormChanged = (eventTarget) => {
     setFormFields({ ...formFields, [eventTarget.id]: eventTarget.value })
+  }
+  const onFormSubmitClicked = (e) => {
+    e.preventDefault()
+    dispatch(submitStockForm(formFields))
   }
   return (
     <div className="stockMarketForm">
@@ -28,6 +36,7 @@ const StockMarketForm = () => {
                   <Label size="sm" for="symbol">Symbol</Label>
                     <Col>
                       <Input
+                        defaultValue={defaultSymbol}
                         id="symbol"
                         size="sm"
                         type="text"
@@ -60,7 +69,10 @@ const StockMarketForm = () => {
               </Form>
             </CardBody>
             <CardFooter>
-              <Button size="sm">Submit</Button>
+              <Button
+                size="sm"
+                onClick={(e) => onFormSubmitClicked(e)}
+              >Submit</Button>
             </CardFooter>
         </Card>
       </Col>
