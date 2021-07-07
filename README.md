@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Chart the stock market PoC
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Used to develop reactstrap UI with hooks and Redux state with slices 
 
 ## Available Scripts
 
