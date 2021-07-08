@@ -9,11 +9,19 @@ export const stockMarketSlice = createSlice({
     stockMarketPrices: []
   },
   reducers: {
+    // TODO:
     submitStockForm: (state, action) => {
       state.stockMarketForm = action.payload
+    },
+    stockFormChanged: (state, action) => {
+      // works but throws non-serializable type error
+      state.formData = {
+        ...state.formData,
+        [action.payload.id]: action.payload.value
+      }
     }
   }
 })
 
-export const { submitStockForm } = stockMarketSlice.actions
+export const { submitStockForm, stockFormChanged } = stockMarketSlice.actions
 export default stockMarketSlice.reducer

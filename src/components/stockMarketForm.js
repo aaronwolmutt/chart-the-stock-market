@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   Button,
   Card,
@@ -12,18 +12,18 @@ import {
   Label
 } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import submitStockForm from '../redux/stockMarketSlice'
+import { submitStockForm, stockFormChanged } from '../redux/stockMarketSlice'
 
 const StockMarketForm = () => {
-  const defaultSymbol = useSelector((state) => state.stockMarket.formData.symbol)
+  const formData = useSelector((state) => state.stockMarket.formData)
+  const stockForm = useSelector((state) => state.stockMarket.formData)
   const dispatch = useDispatch()
-  const [formFields, setFormFields] = useState({})
   const onFormChanged = (eventTarget) => {
-    setFormFields({ ...formFields, [eventTarget.id]: eventTarget.value })
+    dispatch(stockFormChanged(eventTarget))
   }
   const onFormSubmitClicked = (e) => {
     e.preventDefault()
-    dispatch(submitStockForm(formFields))
+    dispatch(submitStockForm(stockForm))
   }
   return (
     <div className="stockMarketForm">
@@ -36,8 +36,8 @@ const StockMarketForm = () => {
                   <Label size="sm" for="symbol">Symbol</Label>
                     <Col>
                       <Input
-                        defaultValue={defaultSymbol}
                         id="symbol"
+                        defaultValue={formData.symbol}
                         size="sm"
                         type="text"
                         onChange={(e) => onFormChanged(e.target)}
@@ -49,6 +49,7 @@ const StockMarketForm = () => {
                     <Col>
                       <Input
                         id="startDate"
+                        defaultValue={formData.startDate}
                         size="sm"
                         type="date"
                         onChange={(e) => onFormChanged(e.target)}
@@ -60,6 +61,7 @@ const StockMarketForm = () => {
                   <Col>
                     <Input
                       id="endDate"
+                      defaultValue={formData.endDate}
                       type="date"
                       size="sm"
                       onChange={(e) => onFormChanged(e.target)}

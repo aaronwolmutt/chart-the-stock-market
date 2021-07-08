@@ -8,7 +8,6 @@ const StockMarketFormModal = () => {
   const dispatch = useDispatch()
   const modalOpened = useSelector((state) => state.navigation.stockMarketFormModalOpened)
   const toggle = () => {
-    console.log(modalOpened)
     dispatch(openStockMarketFormModal())
   }
   return (
