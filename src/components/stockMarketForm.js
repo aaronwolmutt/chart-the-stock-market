@@ -16,14 +16,13 @@ import { submitStockForm, stockFormChanged } from '../redux/stockMarketSlice'
 
 const StockMarketForm = () => {
   const formData = useSelector((state) => state.stockMarket.formData)
-  const stockForm = useSelector((state) => state.stockMarket.formData)
   const dispatch = useDispatch()
   const onFormChanged = (eventTarget) => {
     dispatch(stockFormChanged(eventTarget))
   }
   const onFormSubmitClicked = (e) => {
     e.preventDefault()
-    dispatch(submitStockForm(stockForm))
+    dispatch(submitStockForm(formData))
   }
   return (
     <div className="stockMarketForm">
