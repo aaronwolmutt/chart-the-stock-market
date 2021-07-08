@@ -27,7 +27,7 @@ const StockMarketForm = () => {
   }
   return (
     <div className="stockMarketForm">
-      <Col xs="3">
+      <Col>
         <Card>
           <CardHeader>Stock Form</CardHeader>
             <CardBody>
