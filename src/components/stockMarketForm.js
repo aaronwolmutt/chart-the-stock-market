@@ -15,14 +15,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { submitStockForm, stockFormChanged } from '../redux/stockMarketSlice'
 
 const StockMarketForm = () => {
-  const formData = useSelector((state) => state.stockMarket.formData)
+  const stockMarketFormData = useSelector((state) => state.stockMarket.formData)
   const dispatch = useDispatch()
   const onFormChanged = (eventTarget) => {
+    console.log(eventTarget.id)
+    if (eventTarget.id === 'from' || eventTarget.id === 'to') {
+      eventTarget.value = Math.floor(new Date(eventTarget.value).valueOf() / 1000)
+    }
     dispatch(stockFormChanged(eventTarget))
   }
   const onFormSubmitClicked = (e) => {
     e.preventDefault()
-    dispatch(submitStockForm(formData))
+    dispatch(submitStockForm(stockMarketFormData))
   }
   return (
     <div className="stockMarketForm">
@@ -36,7 +40,7 @@ const StockMarketForm = () => {
                     <Col>
                       <Input
                         id="symbol"
-                        defaultValue={formData.symbol}
+                        defaultValue={stockMarketFormData.symbol}
                         size="sm"
                         type="text"
                         onChange={(e) => onFormChanged(e.target)}
@@ -44,11 +48,11 @@ const StockMarketForm = () => {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label size="sm" for="startDate">Start Date</Label>
+                  <Label size="sm" for="from">Start Date</Label>
                     <Col>
                       <Input
-                        id="startDate"
-                        defaultValue={formData.startDate}
+                        id="from"
+                        defaultValue={stockMarketFormData.from}
                         size="sm"
                         type="date"
                         onChange={(e) => onFormChanged(e.target)}
@@ -56,11 +60,11 @@ const StockMarketForm = () => {
                     </Col>
                 </FormGroup>
                 <FormGroup row>
-                  <Label size="sm" for="endDate">End Date</Label>
+                  <Label size="sm" for="to">End Date</Label>
                   <Col>
                     <Input
-                      id="endDate"
-                      defaultValue={formData.endDate}
+                      id="to"
+                      defaultValue={stockMarketFormData.to}
                       type="date"
                       size="sm"
                       onChange={(e) => onFormChanged(e.target)}

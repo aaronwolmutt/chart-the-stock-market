@@ -3,14 +3,14 @@ import {
   TabContent,
   TabPane
 } from 'reactstrap'
-import StockMarketFormModal from './stockMarketFormModal'
+import StockMarketTabPane from './stockMarketTabPane'
 
 const StockReportsTabContent = ({ activeTab }) => {
   return (
     <div className="stockReportsTabContent">
       <TabContent activeTab={activeTab}>
         <TabPane tabId="1">
-          <StockMarketFormModal />
+          <StockMarketTabPane />
         </TabPane>
         <TabPane tabId="2">
           <h1>Tab 2</h1>
