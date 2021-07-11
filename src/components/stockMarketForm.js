@@ -21,6 +21,7 @@ const StockMarketForm = () => {
   const onFormFieldChanged = (e) => {
     e.preventDefault()
     setCurrentStockMarketForm({
+      ...stockMarketFormData,
       [e.target.id]: e.target.value
     })
   }

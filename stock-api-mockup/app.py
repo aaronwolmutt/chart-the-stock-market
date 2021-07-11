@@ -29,6 +29,8 @@ def health():
 def get_stock_prices():
     try:
         symbol = request.args.get("symbol")
+        begin = request.args.get("from")
+        end = request.args.get("to")
         if symbol is None:
             return {"message": f"Missing required parameter symbol"}, 400
         stock_df = yf.Ticker(symbol).history(period="5y").drop(
@@ -37,6 +39,8 @@ def get_stock_prices():
             axis=1).rename(columns={"Close": "close",
                                     "Volume": "volume"})
         stock_df['date'] = stock_df.index
+        if begin is not None:
+            stock_df = stock_df.loc[begin:end]
         payload = json.loads(stock_df.to_json(date_format="iso",
                                               orient="records"))
         # convert date to YYYY-mm-dd string format
