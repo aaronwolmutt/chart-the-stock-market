@@ -4,6 +4,7 @@ import {
   TabPane
 } from 'reactstrap'
 import StockMarketTabPane from './stockMarketTabPane'
+import StockPricesGrid from './stockPricesGrid'
 
 const StockReportsTabContent = ({ activeTab }) => {
   return (
@@ -13,7 +14,7 @@ const StockReportsTabContent = ({ activeTab }) => {
           <StockMarketTabPane />
         </TabPane>
         <TabPane tabId="2">
-          <h1>Tab 2</h1>
+          <StockPricesGrid />
         </TabPane>
         <TabPane tabId="3">
           <h1>Tab 3</h1>
