@@ -15,7 +15,9 @@ const StockMarketFormModal = () => {
       <Button onClick={() => toggle()}>
         Open
       </Button>
-      <Modal isOpen={modalOpened} toggle={toggle}>
+      <Modal isOpen={modalOpened}
+        toggle={toggle}
+        unmountOnClose={false}>
         <StockMarketForm />
       </Modal>
     </div>

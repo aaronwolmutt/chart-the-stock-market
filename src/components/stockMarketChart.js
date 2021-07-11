@@ -4,12 +4,10 @@ import { useGetStockPricesQuery } from '../api/stockMarketApi'
 
 const StockMarketChart = () => {
   const stockMarketFormData = useSelector((state) => (state.stockMarket.formData))
-  const { data, isFetching, error } = useGetStockPricesQuery(stockMarketFormData, {
-    skip: false
-  })
+  const { data, isFetching, error } = useGetStockPricesQuery(stockMarketFormData)
   return (
     <div className="stockMarketChart">
-      {!isFetching && !error
+      {data && !isFetching && !error
         ? <ul>
             { data.map((price) => <li key={price.date}>Date: {price.date} Close: {price.close}</li>) }
           </ul>

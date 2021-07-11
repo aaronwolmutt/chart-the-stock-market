@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import {
   Button,
   Card,
@@ -12,21 +12,22 @@ import {
   Label
 } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { submittedStockForm, stockFormChanged } from '../redux/stockMarketSlice'
+import { submittedStockForm } from '../redux/stockMarketSlice'
 
 const StockMarketForm = () => {
-  const stockMarketFormData = useSelector((state) => state.stockMarket.formData)
   const dispatch = useDispatch()
-  const onFormChanged = (eventTarget) => {
-    if (eventTarget.id === 'start' || eventTarget.id === 'end') {
-      eventTarget.value = new Date(eventTarget.value).valueOf()
-    }
-    // TODO: caching form data without rerequesting the api with RTK Query subscription
-    dispatch(stockFormChanged(eventTarget))
+  const stockMarketFormData = useSelector((state) => state.stockMarket.formData)
+  const [currentStockMarketForm, setCurrentStockMarketForm] = useState({})
+  const onFormFieldChanged = (e) => {
+    e.preventDefault()
+    setCurrentStockMarketForm({
+      [e.target.id]: e.target.value
+    })
   }
   const onFormSubmitClicked = (e) => {
+    // Caches the current form fields and requests the stocks API
     e.preventDefault()
-    dispatch(submittedStockForm(stockMarketFormData))
+    dispatch(submittedStockForm(currentStockMarketForm))
   }
   return (
     <div className="stockMarketForm">
@@ -43,7 +44,7 @@ const StockMarketForm = () => {
                         defaultValue={stockMarketFormData.symbol}
                         size="sm"
                         type="text"
-                        onChange={(e) => onFormChanged(e.target)}
+                        onChange={(e) => onFormFieldChanged(e)}
                       />
                     </Col>
                 </FormGroup>
@@ -55,7 +56,7 @@ const StockMarketForm = () => {
                         defaultValue={stockMarketFormData.from}
                         size="sm"
                         type="date"
-                        onChange={(e) => onFormChanged(e.target)}
+                        onChange={(e) => onFormFieldChanged(e)}
                       />
                     </Col>
                 </FormGroup>
@@ -67,7 +68,7 @@ const StockMarketForm = () => {
                       defaultValue={stockMarketFormData.to}
                       type="date"
                       size="sm"
-                      onChange={(e) => onFormChanged(e.target)}
+                      onChange={(e) => onFormFieldChanged(e)}
                     />
                   </Col>
                 </FormGroup>
@@ -77,7 +78,8 @@ const StockMarketForm = () => {
               <Button
                 size="sm"
                 onClick={(e) => onFormSubmitClicked(e)}
-              >Submit</Button>
+              >Submit
+              </Button>
             </CardFooter>
         </Card>
       </Col>
