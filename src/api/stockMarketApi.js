@@ -1,20 +1,20 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
+import appConfig from '../appConfig.json'
 
-const apiKey = process.env.REACT_APP_FINHUB_API_KEY
+const stocksApiUrl = appConfig[process.env.NODE_ENV].stocksApiUrl
 export const stocksQuoteApi = createApi({
   reducerPath: 'stocksApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://finnhub.io/api/v1/'
+    baseUrl: `${stocksApiUrl}/api/v1/`
   }),
   endpoints: (builder) => ({
-    getStockPricesBetweenDays: builder.query({
+    getStockPrices: builder.query({
       query: (stockForm) => ({
-        url: `stock/candle?resolution=D&token=${apiKey}`,
+        url: 'stock',
         params: stockForm
-
       })
     })
   })
 })
 
-export const { useGetStockPricesBetweenDaysQuery } = stocksQuoteApi
+export const { useGetStockPricesQuery } = stocksQuoteApi

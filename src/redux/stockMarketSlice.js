@@ -4,16 +4,13 @@ export const stockMarketSlice = createSlice({
   name: 'stockMarket',
   initialState: {
     formData: {
-      symbol: 'KSS',
-      // initalilize 6 month window for daily stock prices
-      from: Math.floor(new Date().setMonth(new Date().getMonth() - 6) / 1000),
-      to: Math.floor(Date.now() / 1000)
+      symbol: 'KSS'
     },
     stockMarketPrices: []
   },
   reducers: {
     // TODO:
-    submitStockForm: (state, action) => {
+    submittedStockForm: (state, action) => {
       state.stockMarketForm = action.payload
     },
     stockFormChanged: (state, action) => {
@@ -26,5 +23,5 @@ export const stockMarketSlice = createSlice({
   }
 })
 
-export const { submitStockForm, stockFormChanged } = stockMarketSlice.actions
+export const { submittedStockForm, stockFormChanged, stockMarketApiFetched } = stockMarketSlice.actions
 export default stockMarketSlice.reducer

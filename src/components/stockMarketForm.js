@@ -12,21 +12,21 @@ import {
   Label
 } from 'reactstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { submitStockForm, stockFormChanged } from '../redux/stockMarketSlice'
+import { submittedStockForm, stockFormChanged } from '../redux/stockMarketSlice'
 
 const StockMarketForm = () => {
   const stockMarketFormData = useSelector((state) => state.stockMarket.formData)
   const dispatch = useDispatch()
   const onFormChanged = (eventTarget) => {
-    console.log(eventTarget.id)
-    if (eventTarget.id === 'from' || eventTarget.id === 'to') {
-      eventTarget.value = Math.floor(new Date(eventTarget.value).valueOf() / 1000)
+    if (eventTarget.id === 'start' || eventTarget.id === 'end') {
+      eventTarget.value = new Date(eventTarget.value).valueOf()
     }
+    // TODO: caching form data without rerequesting the api with RTK Query subscription
     dispatch(stockFormChanged(eventTarget))
   }
   const onFormSubmitClicked = (e) => {
     e.preventDefault()
-    dispatch(submitStockForm(stockMarketFormData))
+    dispatch(submittedStockForm(stockMarketFormData))
   }
   return (
     <div className="stockMarketForm">

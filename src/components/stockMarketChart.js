@@ -1,14 +1,24 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { useGetStockPricesBetweenDaysQuery } from '../api/stockMarketApi'
+import { useGetStockPricesQuery } from '../api/stockMarketApi'
 
 const StockMarketChart = () => {
   const stockMarketFormData = useSelector((state) => (state.stockMarket.formData))
-  const defaultPrices = useGetStockPricesBetweenDaysQuery(stockMarketFormData)
-  console.log(defaultPrices)
+  const { data, isFetching, error } = useGetStockPricesQuery(stockMarketFormData, {
+    skip: false
+  })
   return (
-    <div className="stockChart">
-      <h1>test fetch:</h1>
+    <div className="stockMarketChart">
+      {!isFetching && !error
+        ? <ul>
+            { data.map((price) => <li key={price.date}>Date: {price.date} Close: {price.close}</li>) }
+          </ul>
+        : null
+      }
+      {error
+        ? <p>Add alert here</p>
+        : null
+      }
     </div>
   )
 }
