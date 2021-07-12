@@ -7,6 +7,7 @@ const App = () => {
     <div className="App">
       <Container fluid>
         <TabMenu />
+        <p>PoC app used to develop an async behavior with latest React/Redux</p>
       </Container>
     </div>
   )

@@ -24,13 +24,13 @@ const TabMenu = () => {
             <NavLink
               onClick={() => onTabChanged('1')}
             >
-            Stock Form
+            Stock Chart
             </NavLink>
           </NavItem>
           <NavItem>
             <NavLink
               onClick={() => onTabChanged('2')}
-            > Stock Chart
+            > Stock Data Grid
             </NavLink>
           </NavItem>
           <NavItem>
