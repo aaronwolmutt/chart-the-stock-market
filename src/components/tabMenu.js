@@ -7,6 +7,7 @@ import {
   Row
 } from 'reactstrap'
 import StockReportsTabContent from './stockReportsTabContent'
+import StockMarketFormModal from './stockMarketFormModal'
 import { tabSelected } from '../redux/navigationSlice'
 
 const TabMenu = () => {
@@ -33,10 +34,8 @@ const TabMenu = () => {
             </NavLink>
           </NavItem>
           <NavItem>
-            <NavLink
-              onClick={() => onTabChanged('3')}
-            >
-              Prices Grid
+            <NavLink>
+              <StockMarketFormModal />
             </NavLink>
           </NavItem>
         </Nav>

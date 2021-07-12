@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 import { useGetStockPricesQuery } from '../api/stockMarketApi'
+import Plot from 'react-plotly.js'
 
 const StockMarketChart = () => {
   const stockMarketFormData = useSelector((state) => (state.stockMarket.formData))
@@ -8,9 +9,19 @@ const StockMarketChart = () => {
   return (
     <div className="stockMarketChart">
       {data && !isFetching && !error
-        ? <ul>
-            { data.map((price) => <li key={price.date}>Date: {price.date} Close: {price.close}</li>) }
-          </ul>
+        ? <Plot
+            data={[
+              {
+                x: data.map((entry) => entry.date),
+                y: data.map((entry) => entry.close),
+                type: 'scatter'
+              }
+            ]}
+            layout={{
+              responsive: true,
+              title: 'Daily Adjusted Close Price'
+            }}
+        />
         : null
       }
       {error

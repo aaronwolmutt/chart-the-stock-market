@@ -16,9 +16,6 @@ const StockReportsTabContent = ({ activeTab }) => {
         <TabPane tabId="2">
           <StockPricesGrid />
         </TabPane>
-        <TabPane tabId="3">
-          <h1>Tab 3</h1>
-        </TabPane>
       </TabContent>
     </div>
   )
