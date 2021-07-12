@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Nav,
   NavItem,
@@ -6,11 +7,13 @@ import {
   Row
 } from 'reactstrap'
 import StockReportsTabContent from './stockReportsTabContent'
+import { tabSelected } from '../redux/navigationSlice'
 
 const TabMenu = () => {
-  const [activeTab, setActiveTab] = useState('1')
+  const dispatch = useDispatch()
+  const activeTab = useSelector((state) => state.navigation.activeTab)
   const onTabChanged = (tab) => {
-    if (tab !== activeTab) setActiveTab(tab)
+    dispatch(tabSelected(tab))
   }
   return (
     <div className="stockReportsTabParent">
